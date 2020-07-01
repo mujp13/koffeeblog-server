@@ -102,6 +102,8 @@ function seedMaliciousGuestbook(db, item) {
   return db.into('guestbook').insert([item]);
 }
 
+
+
 module.exports = {
   makeGuestbookArray,
   makeMaliciousGuestbook,
