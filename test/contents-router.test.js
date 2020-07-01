@@ -5,7 +5,7 @@ const helpers = require('./test-helpers');
 describe('Articles Endpoints', function () {
   let db;
 
-  const { testUsers, testArticles, testComments } = helpers.makeArticlesFixtures();
+  //const { testUsers, testArticles, testComments } = helpers.makeArticlesFixtures();
 
   before('make knex instance', () => {
     db = knex({

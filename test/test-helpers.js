@@ -75,7 +75,7 @@ function cleanTables(db) {
     trx
       .raw(
         `TRUNCATE
-        koffee_articles,
+        koffeeblog_articles,
         guestbook
       `
       )
