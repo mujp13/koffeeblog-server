@@ -1,26 +1,71 @@
-# Express Boilerplate!
+## Koffeeblog-server
 
-This is a boilerplate project used for starting new projects!
+Koffeeblog-server is a back-end server for Koffeeblog, the frontend.
 
-## Set up
+## Running the tests
 
-Complete the following steps to start a new project (NEW-PROJECT-NAME):
+To run front-end or back-end tests, simply run "npm t" in the terminal.
 
-1. Clone this repository to your local machine `git clone BOILERPLATE-URL NEW-PROJECTS-NAME`
-2. `cd` into the cloned repository
-3. Make a fresh start of the git history for this project with `rm -rf .git && git init`
-4. Install the node dependencies `npm install`
-5. Move the example Environment file to `.env` that will be ignored by git and read by the express server `mv example.env .env`
-6. Edit the contents of the `package.json` to use NEW-PROJECT-NAME instead of `"name": "express-boilerplate",`
+## Live App
 
-## Scripts
+https://koffeeblg-capstone.vercel.app
 
-Start the application `npm start`
+## API Overview
 
-Start nodemon for the application `npm run dev`
+/api  
+.  
+├── /contents  
+│ └── GET  
+│  
+├── /guestbook  
+│ └── GET  
+│ └── POST  
+│ └── /
 
-Run the tests `npm test`
+## API Overview
 
-## Deploying
+## GET ### /api/contents
 
-When your new project is ready for deployment, add a new Heroku application with `heroku create`. This will make a new git remote called "heroku" and you can then `npm run deploy` which will push to this remote's master branch.
+Returns an array of blog items with associated images
+
+{  
+ title: Text,  
+ typeid: Text,  
+ content: Text,  
+ imageURL : Text  
+}
+
+## GET ### /api/guestbook
+
+Returns an array of user comments left in Guestbook page
+
+{  
+ title: Text,  
+ comment: Text  
+}
+
+## POST ### /api/guestbook
+
+A typical user comment submission via a POST request with "title" and "comments" as text values
+
+{  
+ title: Text,  
+ comment: Text  
+}
+
+## Screenshot
+
+![koffeeblog screenshot](https://github.com/mujp13/koffee_blog_fs/blob/master/github_screenshot.PNG)
+
+## Built With
+
+Node - Run-time environment  
+Express - Web application framework  
+Postgres DB - Database  
+Mocha - Testing  
+Chai - Testing  
+Javascript - Front-end development
+
+## Authors
+
+Keun Suk Park - Full-stack

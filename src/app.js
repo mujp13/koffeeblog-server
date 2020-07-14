@@ -17,7 +17,6 @@ app.use(cors());
 
 app.use('/api/contents', contentsRouter);
 app.use('/api/guestbook', guestbookRouter);
-app.use('/api/auth', authRouter);
 
 app.get('/', (req, res) => {
   res.send('Hello, world!');
