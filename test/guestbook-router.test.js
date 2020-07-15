@@ -2,8 +2,9 @@ const knex = require('knex');
 const app = require('../src/app');
 const helpers = require('./test-helpers');
 
-describe('Contents Endpoints', function () {
+describe('Guestbook Endpoints', function () {
   let db;
+
   before('make knex instance', () => {
     db = knex({
       client: 'pg',
@@ -18,24 +19,20 @@ describe('Contents Endpoints', function () {
 
   afterEach('cleanup', () => helpers.cleanTables(db));
 
-  describe(`GET /api/contents`, () => {
-    context(`Given no contents`, () => {
+  describe(`GET /api/guestbook`, () => {
+    context(`Given no guestbook`, () => {
       it(`responds with 200 and an empty list`, () => {
-        return supertest(app).get('/api/contents').expect(200, []);
+        return supertest(app).get('/api/guestbook').expect(200, []);
       });
     });
   });
-  describe(`POST /api/contents`, () => {
+  describe(`POST /api/guestbook`, () => {
     it(`creates an article, responding with 201 and the new content`, function () {
       return supertest(app)
-        .post('/api/contents')
+        .post('/api/guestbook')
         .send({
-          typeid: 'Test new type',
-          title: 'Test new content',
-          imageurl: 'test new imageurl',
-          content: 'Test new article content...',
-          rating: 'Test new rating',
-          location: 'Test new location',
+          name: 'Test new type',
+          comment: 'Test new content',
         })
         .expect(201);
     });

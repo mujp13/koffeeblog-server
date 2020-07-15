@@ -6,21 +6,18 @@ Koffeeblog-server is a back-end server for Koffeeblog, the frontend.
 
 To run front-end or back-end tests, simply run "npm t" in the terminal.
 
-## Live App
-
-https://koffeeblg-capstone.vercel.app
-
 ## API Overview
 
 /api  
 .  
 ├── /contents  
 │ └── GET  
+| └── POST  
 │  
 ├── /guestbook  
 │ └── GET  
 │ └── POST  
-│ └── /
+└── /
 
 ## API Overview
 
@@ -42,6 +39,19 @@ Returns an array of user comments left in Guestbook page
 {  
  title: Text,  
  comment: Text  
+}
+
+## POST ### /api/contents
+
+A typical user comment submission via a POST request with following values
+
+{  
+typeid: Text,
+title: Text,
+imageurl: Text,
+content: Text,
+rating: Text,
+location: Text
 }
 
 ## POST ### /api/guestbook

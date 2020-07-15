@@ -21,7 +21,7 @@ function makeGuestbookArray() {
   ];
 }
 
-function makeContentsArray() {
+function makeContentArray() {
   return [
     {
       typeid: 'Bean',
@@ -57,7 +57,7 @@ function makeMaliciousGuestbook() {
   const expectedArticle = {
     ...maliciousArticle,
     name: 'Naughty naughty very naughty &lt;script&gt;alert("xss");&lt;/script&gt;',
-    content: `Bad image <img src="https://url.to.file.which/does-not.exist">. But not <strong>all</strong> bad.`,
+    comment: `Bad image <img src="https://url.to.file.which/does-not.exist">. But not <strong>all</strong> bad.`,
   };
   return {
     maliciousArticle,
@@ -68,6 +68,11 @@ function makeMaliciousGuestbook() {
 function makeGuestbookFixtures() {
   const testGuestbook = makeGuestbookArray(testUsers);
   return { testGuestbook };
+}
+
+function makeContentFixtures() {
+  const testContent = makeContentArray(testUsers);
+  return { testContent };
 }
 
 function cleanTables(db) {
@@ -83,18 +88,17 @@ function cleanTables(db) {
         Promise.all([
           trx.raw(`ALTER SEQUENCE guestbook_id_seq minvalue 0 START WITH 1`),
           trx.raw(`SELECT setval('guestbook_id_seq', 0)`),
+          trx.raw(`ALTER SEQUENCE koffeeblog_articles_id_seq minvalue 0 START WITH 1`),
+          trx.raw(`SELECT setval('koffeeblog_articles_id_seq', 0)`),
         ])
       )
   );
 }
 
 function seedGuestbookTables(db, items, comments = []) {
-  // use a transaction to group the queries and auto rollback on any failure
   return db.transaction(async (trx) => {
     await trx.into('guestbook').insert(items);
-    // update the auto sequence to match the forced id values
     await trx.raw(`SELECT setval('guestbook_id_seq', ?)`, [items[items.length - 1].id]);
-    // only insert comments if there are some, also update the sequence counter
   });
 }
 
@@ -102,7 +106,16 @@ function seedMaliciousGuestbook(db, item) {
   return db.into('guestbook').insert([item]);
 }
 
+function seedContentTables(db, items, comments = []) {
+  return db.transaction(async (trx) => {
+    await trx.into('koffeeblog_articles').insert(items);
+    await trx.raw(`SELECT setval('koffeeblog_articles_id_seq', ?)`, [items[items.length - 1].id]);
+  });
+}
 
+function seedMaliciousContent(db, item) {
+  return db.into('koffeeblog_articles').insert([item]);
+}
 
 module.exports = {
   makeGuestbookArray,
@@ -110,5 +123,8 @@ module.exports = {
   cleanTables,
   seedGuestbookTables,
   makeGuestbookFixtures,
+  makeContentFixtures,
   seedMaliciousGuestbook,
+  seedContentTables,
+  seedMaliciousContent,
 };
